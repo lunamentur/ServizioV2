@@ -7,7 +7,6 @@ import resource.*;
 
 
 public class Book extends Resource {
-
     private String gener;
     private int numPage, yearPub;
 

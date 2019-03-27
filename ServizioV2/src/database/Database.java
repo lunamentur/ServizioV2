@@ -1,9 +1,9 @@
 package database;
 import operator.User;
 import resource.Resource;
+import resource.Book;
 import view.*;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashMap;
@@ -129,7 +129,7 @@ public class Database {
      */
     public static void insertBook(Book newbook){
         int barcode= newbook.getBarcode();
-        bookList.put(, newbook); //non capisco perchè mi dia errore.....
+        bookList.put(barcode,newbook); //non capisco perchè mi dia errore.....
         System.out.println("<+> New book added!");
     }
     /**

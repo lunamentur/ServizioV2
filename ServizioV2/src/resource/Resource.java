@@ -27,4 +27,11 @@ public class Resource {
         this.title=title;
         this.license=license;
     }
+    public Integer[] getLicense() {
+        return license;
+    }
+
+    public void setLicense(Integer[] license) {
+        this.license = license;
+    }
 }

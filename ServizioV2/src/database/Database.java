@@ -5,7 +5,9 @@ import view.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -162,4 +164,36 @@ public class Database {
         //sostituisco il mio nuovo vettore col set della classe Book
         getBook(barcode).setLicense(copie);
     }
+
+    /**
+     * Creazione di oggetti preimpostati.
+     */
+    public static void initAllObject() {
+        //genero utenti
+        User user1 = new User("test", "test", "test1", "test1", LocalDate.of(1996, 12, 01), LocalDate.of(2018, 01, 01));
+        User user2 = new User("test", "test", "test2", "test2", LocalDate.of(2000, 12, 01), LocalDate.of(1996, 01, 01));
+        User user3 = new User("test", "test", "test3", "test3", LocalDate.of(1988, 12, 01), LocalDate.of(2019, 01, 01));
+        userList.put(user1.getUsername(), user1);
+        userList.put(user2.getUsername(), user2);
+        userList.put(user3.getUsername(), user3);
+
+        ArrayList<String> langues_test = new ArrayList<String>();
+        ArrayList<String> author_test = new ArrayList<String>();
+        Integer [] license_book1={4,0};
+        Integer [] license_book2={2,0};
+        Integer [] license_book3={1,0};
+
+        langues_test.add("inglese");
+        langues_test.add("spagnolo");
+        author_test.add("Gino");
+        author_test.add("Pino");
+        Book book1= new Book(111,"title1", author_test,langues_test,200,1999,"Romanzo",license_book1 );
+        Book book2= new Book(222,"title1", author_test,langues_test,100,2001,"Saggio", license_book2);
+        Book book3= new Book(333,"title1", author_test,langues_test,200,2019,"Giallo",license_book3 );
+        bookList.put(book1.getBarcode(), book1);
+        bookList.put(book2.getBarcode(), book2);
+        bookList.put(book3.getBarcode(), book3);
+
+    }
+
 }

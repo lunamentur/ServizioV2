@@ -312,35 +312,35 @@ public class Library {
 	}
 
 
-	/**
-	 * Metodo che permette di inserire le lingue e gli autori. Uno o più.
-	 * @param
-	 * @return
-	 */
-	public static ArrayList<String> insertArray(String tipoInserimento){
-		end= false;
-		view.stampaRichiestaSingola(tipoInserimento);
-		//inserisce al primo giro almeno un autore o una lingua
-		try {
-			string= readStringNotNull();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		arrayList.add(string);
-		while(!end){
-			view.stampaRichiestaSingola(view.MG_ANCORA + "Premi 0 per inserire ancora: ");
-			number=readInt();
-			if(number==0)
-			{
-				//inserisce una o più lingue/autori
-				arrayList.add(string);
-			}
-			else {
-				end=true;
-			}
-		}
-		return arrayList;
-	}
+
+    /**
+     * Metodo che permette di inserire le lingue e gli autori. Uno o più.
+     * @param tipoInserimento stringa che permette di generalizzare il metodo di inserimento, stampandola a video.
+     * @return arrayList ovvero la lista di stringhe.
+     */
+    public static ArrayList<String> insertArray(String tipoInserimento){
+        boolean end= false;
+        ArrayList<String> arrayList = new ArrayList<String>();
+        view.stampaRichiestaSingola(tipoInserimento);
+        //inserisce al primo giro almeno un autore o una lingua
+        try {
+            string= readStringNotNull();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        arrayList.add(string);
+        while(!end){
+            view.stampaRichiestaSingola(tipoInserimento + "Altrimenti premi 0 per uscire.");
+            try {
+                string= readStringNotNull();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if(string.equals("0")) end= true;
+            else arrayList.add(string);
+        }
+        return arrayList;
+    }
 
 	/**
 	 *
@@ -368,17 +368,13 @@ public class Library {
 	 */
 	public static int readInt() {
 		Scanner readInt = new Scanner(System.in);
-	  	end = false;
 	  	int numInserito = 0;
-	  	do
-	  	{	
-	  		if(readInt.hasNextInt())
+	  	    if(readInt.hasNextInt())
 	  		{
 	  			end = true ;
 	  			numInserito = readInt.nextInt();
 	  		}
 	  		else System.out.println(view.MG_ERRORE);
-	  	}while(!end);
 	  	return numInserito;
 	}
 	

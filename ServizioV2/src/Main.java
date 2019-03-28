@@ -12,10 +12,14 @@ import operator.*;
 public class Main {
     public static void main(String[] args) {
 
-    	 View view=new View();
          String name, surname, username, password;
          LocalDate birthDate, registrationDate;
          User user;
+
+		/**
+		 * credo degli oggetti preimpostati e li carico nel programma per i test.
+		 */
+		Database.initAllObject();
 
 		int choise;
 		boolean end;
@@ -26,8 +30,8 @@ public class Main {
          end = false;
      	do
      	{
-			view.stampaRichiestaSingola(View.MG_INIZIALE);
-			view.stampaMenuSpecifico(View.RICHIESTE_MENU_INIZIALE);
+			View.stampaRichiestaSingola(View.MG_INIZIALE);
+			View.stampaMenuSpecifico(View.RICHIESTE_MENU_INIZIALE);
 			choise=Library.readInt();
      		switch(choise){
          		
@@ -44,7 +48,7 @@ public class Main {
 
 					Library.registrationProcess();
 					System.out.println(View.GRAZIE_ISCRIZIONE);
-					view.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
+					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
 					break;
          			
          	/**
@@ -74,7 +78,7 @@ public class Main {
 						 */
 						Library.actionAdmin();
 					}
-					view.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
+					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
          			break;
 
 				/**
@@ -82,11 +86,11 @@ public class Main {
  				 */
 				case 666:
 					//Library.actionAdmin();
-					view.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
+					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
 					break;
          	
          		default:
-         			view.stampaRichiestaSingola(View.MG_ERRORE);
+         			View.stampaRichiestaSingola(View.MG_ERRORE);
          			break;
 
          		case 0:

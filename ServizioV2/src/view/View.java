@@ -25,7 +25,7 @@ public class View {
      * utente oppure, se gia\' in possesso di nome utente e password
      */
     public final static String [] RICHIESTE_MENU_INIZIALE ={" ISCRIVITI ai servizi di prestito temporaneo se sei un nuovo utente;",
-            " AUTENTICAZIONE se sei gia\' un'utente registrato ai servizi di prestito temporaneo;"};
+            " AUTENTICAZIONE se sei gia\' un utente registrato ai servizi di prestito temporaneo;"};
 
     /**
      * @param RINNOVO rappresenta la richiesta di rinnovo dell'iscrizione ai servizi di prestito temporaneo da sottoporre all'utente.
@@ -62,7 +62,7 @@ public class View {
     /**
      * Metodo che permette di stampare il Menu'
      */
-    public void stampaMenuSpecifico(String[] richiesteMenu)
+    public static void stampaMenuSpecifico(String[] richiesteMenu)
     {
         System.out.println(CORNICETTA);
         for (int k=0; k < richiesteMenu.length; k++)
@@ -75,7 +75,7 @@ public class View {
     /**
      * Metodo che permette di stampare una singola richiesta con cornicette annesse.
      */
-    public void stampaRichiestaSingola(String richiestaMenu) {
+    public static void stampaRichiestaSingola(String richiestaMenu) {
         System.out.println(CORNICETTA);
         System.out.println(richiestaMenu);
         System.out.println(CORNICETTA);

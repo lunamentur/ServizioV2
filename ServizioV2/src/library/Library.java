@@ -171,7 +171,7 @@ public class Library {
 	 */
 	public static void actionAdmin(){
 		view.stampaMenuSpecifico(view.RICHIESTE_MENU_ADMIN);
-		end= false;
+		boolean end= false;
 		do{
 			choise= readInt();
 			switch(choise)
@@ -260,7 +260,7 @@ public class Library {
 	 * @return
 	 */
 	public static int insertBarcode(int vincolo){
-		end= false;
+		boolean end= false;
 		view.stampaRichiestaSingola(view.BARCODE);
 		while(!end){
 			barcode= readInt();
@@ -294,7 +294,7 @@ public class Library {
 	 * @return
 	 */
 	public static int insertNumberEqual(String tipoInserimento, int vincolo){
-		end= false;
+		boolean end= false;
 		view.stampaRichiestaSingola(tipoInserimento);
 		while(!end){
 			number= readInt();
@@ -394,7 +394,7 @@ public class Library {
      */
 	public static String readStringNotNull() throws Exception
 	{
-	   end = false;
+	   boolean end = false;
 	   String stringa = null;
 	   
 	   do

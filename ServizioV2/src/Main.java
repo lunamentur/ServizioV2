@@ -1,23 +1,25 @@
 import database.Database;
 import library.Library;
-import operator.Admin;
 import view.View;
-
 import java.time.LocalDate;
-
-import static library.Library.readStringNotNull;
-import static library.Library.registrationProcess;
 import operator.*;
-import resource.*;
-import database.*;
 
+/**
+ * Classe main del programma servizio temporaneo di prestiti.
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
+ */
 public class Main {
     public static void main(String[] args) {
 
-    	 View view=new View();
          String name, surname, username, password;
          LocalDate birthDate, registrationDate;
          User user;
+
+		/**
+		 * credo degli oggetti preimpostati e li carico nel programma per i test.
+		 */
+		Database.initAllObject();
 
 		int choise;
 		boolean end;
@@ -25,11 +27,11 @@ public class Main {
           * Scelta da parte dell'utente di iscriversi oppure di autenticarsi.
 		  * Se si autentica come Admin gli vengono elencate alcune azioni da poter svolgere.
           */
-         view.stampaRichiestaSingola(View.MG_INIZIALE);
-		 view.stampaMenuSpecifico(View.RICHIESTE_MENU_INIZIALE);
-		 end = false;
+         end = false;
      	do
      	{
+			View.stampaRichiestaSingola(View.MG_INIZIALE);
+			View.stampaMenuSpecifico(View.RICHIESTE_MENU_INIZIALE);
 			choise=Library.readInt();
      		switch(choise){
          		
@@ -45,7 +47,7 @@ public class Main {
      				 */
 
 					Library.registrationProcess();
-					System.out.println(View.GRAZIE_ISCRIZIONE);
+					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
 					break;
          			
          	/**
@@ -57,42 +59,30 @@ public class Main {
 					 * Se la password è la stessa allora viene autenticato con successo, altrimenti
          			 * continua a ciclare oppure si termina il programma.
                      */
-					username=Library.checkLogin();
-
-					/**
-					 * Una volta che il Login è andato a buon fine controlliamo che l'iscrizione dell'user sia ancora valida.
-					 * Se non lo è, ovvero sono decaduti i privilegi, può avvenire il rinnovo dell'iscrizione.
-					 */
-					Library.renewalRegistration(Database.getUser(username));
-
-					/**
-					 * Verifichiamo se e\' un Admin.
-					 */
-					if(Library.checkAdminIfTrue(Database.getUser(username))) {
+         			username=Library.checkLogin();
+         			if(!username.equals("_error_")){
 						/**
-						 * Essendo Admin mostro il menu\' delle azioni che possono essere svolte.
+						 * Una volta che il Login è andato a buon fine controlliamo che l'iscrizione dell'user sia ancora valida.
+						 * Se non lo è, ovvero sono decaduti i privilegi, può avvenire il rinnovo dell'iscrizione.
 						 */
-						choise=3;
-					}
+						Library.renewalRegistration(Database.getUser(username));
 
-
-
+						/**
+						 * Verifichiamo se e\' un Admin.
+						 */
+						if(Library.checkAdminIfTrue(Database.getUser(username))) {
+							/**
+							 * Se l'utente accede al servizio coi privilegi di Admin allora puo\' svolgere determinate azioni.
+							 * Azioni sono: visualizzare elenco utenti, visualizzare l'elenco risorse, aggiungere nuova risorsa all'elenco e rimuovere risorsa dall'elenco.
+							 */
+							Library.actionAdmin();
+						}
+					}else System.out.println("Autenticazione non e\' andata a buon fine.");
+					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
          			break;
 
-				/**
-				 * Azioni Admin.
- 				 */
-				case 3:
-					/**
-					 * Se l'utente accede al servizio coi privilegi di Admin allora puo\' svolgere determinate azioni.
-					 * Azioni sono: visualizzare l'elenco risorse, aggiungere nuova risorsa all'elenco e rimuovere risorsa dall'elenco.
-					 */
-					Library.actionAdmin();
-
-					break;
-         	
          		default:
-         			view.stampaRichiestaSingola(View.MG_ERRORE);
+         			View.stampaRichiestaSingola(View.MG_ERRORE);
          			break;
 
          		case 0:
@@ -100,8 +90,6 @@ public class Main {
 					System.out.println(View.FINE_MENU);
 					break;
      		}
-     		view.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
-
 		}while(!end);
      }
 

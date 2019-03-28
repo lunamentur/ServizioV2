@@ -1,8 +1,9 @@
 package view;
 /**
- * @author Reda , Simona
  * Classe View col compito di generare il menu' iniziale con cui si interfaccera' l'utente finale e
  * altri metodi del tipo .toString() al fine di visualizzare a video messaggi di errore, domande, simboli e altro.
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
  */
 public class View {
 
@@ -24,7 +25,7 @@ public class View {
      * utente oppure, se gia\' in possesso di nome utente e password
      */
     public final static String [] RICHIESTE_MENU_INIZIALE ={" ISCRIVITI ai servizi di prestito temporaneo se sei un nuovo utente;",
-            " AUTENTICAZIONE se sei gia\' un'utente registrato ai servizi di prestito temporaneo;"};
+            " AUTENTICAZIONE se sei gia\' un utente registrato ai servizi di prestito temporaneo;"};
 
     /**
      * @param RINNOVO rappresenta la richiesta di rinnovo dell'iscrizione ai servizi di prestito temporaneo da sottoporre all'utente.
@@ -40,13 +41,16 @@ public class View {
     public final static String YEAR ="Inserisci ANNO:";
     public final static String USERNAME_ESISTE="Riprova, hai inserito un USERNAME esistente, scegline uno diverso.\n";
 
+    public final static String MINORENNE=" Non puoi iscriverti servizio poiche\' sei minorenne.";
+
 
     /**
      * Stringhe COSTANTI associate all'Admin e Risorse.
      */
     public final static String [] RICHIESTE_MENU_ADMIN ={" VISUALIZZARE l'elenco delle risorse.",
             " AGGIUNGERE una risorsa dall'elenco. ",
-            " RIMUOVERE una risorsa dall'elenco. " };
+            " RIMUOVERE una risorsa dall'elenco. " ,
+            " VISUALIZZARE l'elenco degli attuali utenti"};
     public final static String BARCODE =" Inserisci BARCODE: ";
     public final static String GENERE =" Inserisci GENERE: ";
     public final static String AUTORI =" Inserisci AUTORE/I:  ";
@@ -60,7 +64,7 @@ public class View {
     /**
      * Metodo che permette di stampare il Menu'
      */
-    public void stampaMenuSpecifico(String[] richiesteMenu)
+    public static void stampaMenuSpecifico(String[] richiesteMenu)
     {
         System.out.println(CORNICETTA);
         for (int k=0; k < richiesteMenu.length; k++)
@@ -73,7 +77,7 @@ public class View {
     /**
      * Metodo che permette di stampare una singola richiesta con cornicette annesse.
      */
-    public void stampaRichiestaSingola(String richiestaMenu) {
+    public static void stampaRichiestaSingola(String richiestaMenu) {
         System.out.println(CORNICETTA);
         System.out.println(richiestaMenu);
         System.out.println(CORNICETTA);

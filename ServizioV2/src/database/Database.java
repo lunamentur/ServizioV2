@@ -1,18 +1,20 @@
 package database;
 import operator.User;
-import resource.Resource;
 import resource.Book;
 import view.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 /**
  * Classe Database che racchiude metodi e gestione del database in cui sono raccolti tutti gli user e oggetti inerenti.
- * @author Reda, Simona
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
  */
 public class Database {
     private static View view=new View();
@@ -54,7 +56,7 @@ public class Database {
      * @return true login riuscito corettamente.
      */
     public static boolean checkLoginIfTrue(String username, String password){
-        if(userList.containsValue(username) && userList.get(username).getPassword() == password) return true;
+        if(userList.containsKey(username) && userList.get(username).getPassword().equals(password)) return true;
         else return false;
     }
 
@@ -64,7 +66,7 @@ public class Database {
      * return false altrimenti
      */
     public static boolean checkIfUser(String username){
-        return userList.containsValue(username);
+        return userList.containsKey(username);
     }
 
     /**
@@ -78,7 +80,7 @@ public class Database {
 
     /**
      * Metodo di controllo che verifica che l'user, oggetto di tipo User, sia maggiorenne.
-     * Pertanto confronta la data di nascita, di tipo LocalDate, con la data attuale, LocalDate.now(), affinche\' sia 
+     * Pertanto confronta la data di nascita, di tipo LocalDate, con la data attuale, LocalDate.now(), affinche\' sia
      * maggiore o uguale a 18 anni.
      * @param birthDate  Data di nascita dell'user, di tipo LocalDate. E\' richiesto che sia maggiorenne per poter diventare utente dei servizi.
      * @return false se l'user non e\' maggiorenne. (e quindi non ha accesso ai servizi di prestito temporaneo)
@@ -87,12 +89,7 @@ public class Database {
     public static boolean checkIf18(LocalDate birthDate){
         LocalDate now = LocalDate.now();
         int age = Period.between(birthDate,now).getYears();
-        if(age > 18){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return age >= 18;
     }
 
 
@@ -115,7 +112,7 @@ public class Database {
      * return false altrimenti
      */
     public static boolean checkIfBook(int barcode){
-         return bookList.containsValue(barcode);
+         return bookList.containsKey(barcode);
     }
 
     /**
@@ -128,15 +125,16 @@ public class Database {
      * Medoto che permette l'inserimento di un nuovo libro, oggetto di tipo Book, all'interno della nostra lista di libri, HashMap.
      */
     public static void insertBook(Book newbook){
-        int barcode= newbook.getBarcode();
-        bookList.put(barcode,newbook); //non capisco perchè mi dia errore.....
+        bookList.put(newbook.getBarcode(), newbook); //non capisco perchè mi dia errore.....
         System.out.println("<+> New book added!");
     }
     /**
      * Metodo, di stampa, che permette di visualizzare a video la lista di tutti i libri all'interno del database, l'HashMap.
      */
     public static void listBook(){
-        System.out.println(bookList);
+        for (Map.Entry<Integer,Book> book: bookList.entrySet()){
+            System.out.println(book.toString());
+        }
     }
 
     /**
@@ -161,4 +159,36 @@ public class Database {
         //sostituisco il mio nuovo vettore col set della classe Book
         getBook(barcode).setLicense(copie);
     }
+
+    /**
+     * Creazione di oggetti preimpostati.
+     */
+    public static void initAllObject() {
+        //genero utenti
+        User user1 = new User("test", "test", "test1", "test1", LocalDate.of(1996, 12, 01), LocalDate.of(2018, 01, 01));
+        User user2 = new User("test", "test", "test2", "test2", LocalDate.of(2000, 12, 01), LocalDate.of(1996, 01, 01));
+        User user3 = new User("test", "test", "test3", "test3", LocalDate.of(1988, 12, 01), LocalDate.of(2019, 01, 01));
+        userList.put(user1.getUsername(), user1);
+        userList.put(user2.getUsername(), user2);
+        userList.put(user3.getUsername(), user3);
+
+        ArrayList<String> langues_test = new ArrayList<String>();
+        ArrayList<String> author_test = new ArrayList<String>();
+        Integer [] license_book1={4,0};
+        Integer [] license_book2={2,0};
+        Integer [] license_book3={1,0};
+
+        langues_test.add("inglese");
+        langues_test.add("spagnolo");
+        author_test.add("Gino");
+        author_test.add("Pino");
+        Book book1= new Book(111,"title1", author_test,langues_test,200,1999,"Romanzo",license_book1 );
+        Book book2= new Book(222,"title1", author_test,langues_test,100,2001,"Saggio", license_book2);
+        Book book3= new Book(333,"title1", author_test,langues_test,200,2019,"Giallo",license_book3 );
+        bookList.put(book1.getBarcode(), book1);
+        bookList.put(book2.getBarcode(), book2);
+        bookList.put(book3.getBarcode(), book3);
+
+    }
+
 }

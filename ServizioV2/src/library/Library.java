@@ -9,24 +9,19 @@ import resource.*;
 
 
 /**
- * Classe intermedia che permette l'interazione tra la classe Admin-User e la classe Database.
- * @author Reda , Simona
- *
- *
- *
- * MANCANO: check sul username che deve essere univoco durante la creazione, stessa cosa per il barcode del libro (se uguale bisogna incrementare il numero di licenze in posizione uno)
+ * Classe intermedia che permette l'interazione tra la classe User e la classe Database.
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
  */
 public class Library {
 	
 	public final static String MG_ERRORE="Hai inserito un valore non valido\n";
-	private static boolean end;
 	public static LocalDate birthDate;
-	private static View view=new View();
 
 	/**
 	 * Creazione di variabili e oggetti utili per i metodi di controllo relativi all'User.
 	 */
-	private static String string, password,username,name, surname;
+	private static String string, password,username;
 	private static int year, month, day, choise;
 	private static long rangeYear=5;
 	private static long rangeDay=-10;
@@ -38,7 +33,6 @@ public class Library {
 	/**
 	 * Creazione di variabili e oggetti utili per i metodi di controllo relativi alle risorse.
 	 */
-	private static ArrayList<String> arrayList= new ArrayList<String>(); //lingue, autori
 	private static Integer [] licenseList= {0,0}; //licenze con due componenti.
 	private static int number,barcode;
 
@@ -52,11 +46,25 @@ public class Library {
 	 * oggetto di tipo User, all'interno del Database.
 	 */
     public static void registrationProcess(){
-        User user = new User(insertString(view.NOME), insertString(view.COGNOME), insertUserName(), insertString(view.PASSWORD), insertDate(), LocalDate.now());
+        User user = new User(insertString(View.NOME), insertString(View.COGNOME), insertUserName(), insertString(View.PASSWORD), insertDate(), LocalDate.now());
         if(Database.checkIf18(user.getBirthDate()) != false){
             Database.insertUser(user);
-        }
+            registrationAdmin(user);
+            System.out.println(View.GRAZIE_ISCRIZIONE);
+        } else System.out.println(View.MINORENNE);
     }
+
+	/**
+	 * Metodo che permette all'utente di iscriversi come admin.
+	 * @param user {@link User}
+	 */
+	public static void registrationAdmin(User user){
+		System.out.println("Sei un admin? se SI premi 0.");
+		choise=readInt();
+		if(choise==0){
+			user.setAdmin(true);
+		}
+	}
 
 	/**
 	 * Metodo che controlla se l'username e\' gia presente nel Database.
@@ -64,13 +72,13 @@ public class Library {
 	 * @return username
 	 */
 	public static String insertUserName(){
-		end=false;
+		boolean end=false;
 		while(!end){
-			username=insertString(view.USER_NAME);
-			if(Database.checkIfUser(username)){
+			username=insertString(View.USER_NAME);
+			if(!Database.checkIfUser(username)){
 				end=true;
 			}
-			else view.stampaRichiestaSingola(view.USERNAME_ESISTE);
+			else View.stampaRichiestaSingola(View.USERNAME_ESISTE);
 		}
 		return username;
 	}
@@ -82,26 +90,23 @@ public class Library {
 	 * @return birthDate
      */
     public static LocalDate insertDate(){
-    	end= false;
-		view.stampaRichiestaSingola(view.DATA_NASCITA);
+    	boolean end= false;
+		View.stampaRichiestaSingola(View.DATA_NASCITA);
     	while(!end){
-			view.stampaRichiestaSingola(view.YEAR);
+			View.stampaRichiestaSingola(View.YEAR);
 			year= readInt();
     		if(String.valueOf(year).length()==4)
     		{
-				view.stampaRichiestaSingola(view.MONTH);
+				View.stampaRichiestaSingola(View.MONTH);
     			month= readInt();
-				view.stampaRichiestaSingola(view.DAY);
+				View.stampaRichiestaSingola(View.DAY);
     			day=readInt();
-    			if(String.valueOf(month).length()==2 && String.valueOf(day).length()==2)
-    			{
+                if((String.valueOf(month).length()<=2 && month <= 12 ) && (( String.valueOf(day).length() <= 2) && day <= 31)){
     				birthDate= LocalDate.of(year,month,day);
     				end=true;
     			}
     		}
-    		else {
-				System.out.println(MG_ERRORE);
-			}
+    		else System.out.println(MG_ERRORE);
     	}
     	return birthDate;
     }
@@ -112,18 +117,25 @@ public class Library {
 	 * Se fallisce continua a ciclare finchè non ci si autentica correttamente.
      */
 	public static String checkLogin(){
-		end = false;
+		boolean end = false;
 		do
 		{
-			username=insertString(view.USER_NAME);
-			password=insertString(view.PASSWORD);
+			username=insertString(View.USER_NAME);
+			password=insertString(View.PASSWORD);
 			if(Database.checkLoginIfTrue(username,password)) {
-				System.out.println(view.AUTENTICAZIONE_SUCCESSO);
-				end = true;
+				System.out.println(View.AUTENTICAZIONE_SUCCESSO);
+                end = true;
 			}
 			else {
-				System.out.println(MG_ERRORE+ "Riprova.");
-				end=false;
+                System.out.println(View.MG_ERRORE+ View.MG_ANCORA +" premi 0 per riprovare");
+                choise= readInt();
+                /**
+                 * Continua a ciclare se viene premuto 0, altrimenti si esce dal ciclo.
+                 */
+                if(choise!=0) {
+                	username="_error_";
+                	end=true;
+                }
 			}
 		}while(!end);
 		return username;
@@ -135,8 +147,8 @@ public class Library {
 	 */
 	public static void renewalRegistration(User user){
 		if(isExpired(user)){
-			view.stampaRichiestaSingola(view.MG_SCADUTA_ISCRIZIONE);
-			view.stampaRichiestaSingola(view.RINNOVO);
+			View.stampaRichiestaSingola(View.MG_SCADUTA_ISCRIZIONE);
+			View.stampaRichiestaSingola(View.RINNOVO);
 			choise= readInt();
 			if(choise==0){
 				user.setRegistrationDate(LocalDate.now());
@@ -144,18 +156,14 @@ public class Library {
 		}
 	}
 
-	/**
-	 * Metodo che controlla che l'iscrizione dell'user sia scaduta o nel range impostato per il rinnovo anticipato.
-	 * @return true se l'iscrizione dell'user è scaduta, quindi può essere rinnovata.
-	 * @return false se l'iscrizione dell'user non è scaduta e non è nel range dei giorni di rinnovo.
-	 */
-	public static boolean isExpired(User user){
-		if(user.getRegistrationDate().plusYears(rangeYear).isAfter(LocalDate.now()) || user.getRegistrationDate().plusDays(rangeDay).isAfter(LocalDate.now())){
-			return true;
-		}
-		return false;
-	}
-
+    /**
+     * Metodo che controlla che l'iscrizione dell'user sia scaduta o nel range impostato per il rinnovo anticipato.
+     * @return true se l'iscrizione dell'user è scaduta, quindi può essere rinnovata.
+     * @return false se l'iscrizione dell'user non è scaduta e non è nel range dei giorni di rinnovo.
+     */
+    public static boolean isExpired(User user){
+        return user.getRegistrationDate().plusYears(rangeYear).isBefore(LocalDate.now()) && user.getRegistrationDate().plusDays(rangeDay).isBefore(LocalDate.now());
+    }
 
 
 	/**
@@ -175,8 +183,8 @@ public class Library {
 	 * Metodo che permette di gestire le azioni che possono essere svolte dall'Admin.
 	 */
 	public static void actionAdmin(){
-		view.stampaMenuSpecifico(view.RICHIESTE_MENU_ADMIN);
-		end= false;
+		View.stampaMenuSpecifico(View.RICHIESTE_MENU_ADMIN);
+		boolean end= false;
 		do{
 			choise= readInt();
 			switch(choise)
@@ -198,11 +206,17 @@ public class Library {
 				 * Rimozione di una risorsa dall'archivio.
 				 */
 				case 3:
-					view.stampaRichiestaSingola(view.BARCODE);
+					View.stampaRichiestaSingola(View.BARCODE);
 					number= readInt();
 					Database.removeBook(number);
 					break;
 
+				/**
+				 * Visualizzazione dell'elenco delle risorse.
+				 */
+				case 4:
+					Database.listUsers();
+					break;
 				/**
 				 * Fine della stampa delle richieste del Menu.
 				 */
@@ -217,7 +231,7 @@ public class Library {
 					System.out.println(MG_ERRORE);
 					break;
 			}
-			view.stampaRichiestaSingola(view.MG_ANCORA + view.PREMI);
+			View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
 		}while(!end);
 	}
 
@@ -232,9 +246,9 @@ public class Library {
 	 */
 	//barcode,String title, ArrayList author, ArrayList langues, int numPage, int yearPub, String gener, Integer [] license
 	public static void createBook(int barcode){
-		Book book = new Book(barcode, insertString(View.TITOLO), insertArray(view.AUTORI), insertArray(view.LINGUE), insertNum(view.NUM_PAG), insertNumberEqual(view.YEAR,4), insertString(view.GENERE), licenseList);
+		Book book = new Book(barcode, insertString(View.TITOLO), insertArray(View.AUTORI), insertArray(View.LINGUE), insertNum(View.NUM_PAG), insertNumberEqual(View.YEAR,4), insertString(View.GENERE), licenseList);
 		Database.insertBook(book);
-		view.stampaRichiestaSingola(view.MG_AZIONE_SUCCESSO);
+		View.stampaRichiestaSingola(View.MG_AZIONE_SUCCESSO);
 	}
 
 	/**
@@ -248,7 +262,7 @@ public class Library {
 			 * Incremenenta il numero di copie disponibili se gia\' presente una risorssa uguale.
 			 */
 			Database.incrementLicense(barcode);
-			view.stampaRichiestaSingola(view.MG_AZIONE_SUCCESSO);
+			View.stampaRichiestaSingola(View.MG_AZIONE_SUCCESSO);
 		}
 		else createBook(barcode);
 	}
@@ -259,8 +273,8 @@ public class Library {
 	 * @return
 	 */
 	public static int insertBarcode(int vincolo){
-		end= false;
-		view.stampaRichiestaSingola(view.BARCODE);
+		boolean end= false;
+		View.stampaRichiestaSingola(View.BARCODE);
 		while(!end){
 			barcode= readInt();
 			if(String.valueOf(barcode).length()>=vincolo)
@@ -280,7 +294,7 @@ public class Library {
 	 * @return
 	 */
 	public static int insertNum(String tipoInserimento){
-		view.stampaRichiestaSingola(tipoInserimento);
+		View.stampaRichiestaSingola(tipoInserimento);
 		number= readInt();
 		return number;
 
@@ -293,9 +307,9 @@ public class Library {
 	 * @return
 	 */
 	public static int insertNumberEqual(String tipoInserimento, int vincolo){
-		end= false;
-		view.stampaRichiestaSingola(tipoInserimento);
+		boolean end= false;
 		while(!end){
+			View.stampaRichiestaSingola(tipoInserimento);
 			number= readInt();
 			if(String.valueOf(year).length()==vincolo)
 			{
@@ -309,43 +323,43 @@ public class Library {
 	}
 
 
-	/**
-	 * Metodo che permette di inserire le lingue e gli autori. Uno o più.
-	 * @param
-	 * @return
-	 */
-	public static ArrayList<String> insertArray(String tipoInserimento){
-		end= false;
-		view.stampaRichiestaSingola(tipoInserimento);
-		//inserisce al primo giro almeno un autore o una lingua
-		try {
-			string= readStringNotNull();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		arrayList.add(string);
-		while(!end){
-			view.stampaRichiestaSingola(view.MG_ANCORA + "Premi 0 per inserire ancora: ");
-			number=readInt();
-			if(number==0)
-			{
-				//inserisce una o più lingue/autori
-				arrayList.add(string);
-			}
-			else {
-				end=true;
-			}
-		}
-		return arrayList;
-	}
+
+    /**
+     * Metodo che permette di inserire le lingue e gli autori. Uno o più.
+     * @param tipoInserimento stringa che permette di generalizzare il metodo di inserimento, stampandola a video.
+     * @return arrayList ovvero la lista di stringhe.
+     */
+    public static ArrayList<String> insertArray(String tipoInserimento){
+        boolean end= false;
+        ArrayList<String> arrayList = new ArrayList<String>();
+        View.stampaRichiestaSingola(tipoInserimento);
+        //inserisce al primo giro almeno un autore o una lingua
+        try {
+            string= readStringNotNull();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        arrayList.add(string);
+        while(!end){
+            View.stampaRichiestaSingola(tipoInserimento + "Altrimenti premi 0 per uscire.");
+            try {
+                string= readStringNotNull();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if(string.equals("0")) end= true;
+            else arrayList.add(string);
+        }
+        return arrayList;
+    }
 
 	/**
-	 *
-	 * @param tipoInserimento
-	 * @return
+	 * Metodo che permette l'inserimento di una stringa.
+	 * @param tipoInserimento richiesta da soddisfare.
+	 * @return stringa.
 	 */
 	public static String insertString(String tipoInserimento) {
-		view.stampaRichiestaSingola(tipoInserimento);
+		View.stampaRichiestaSingola(tipoInserimento);
 		try {
 			string = readStringNotNull();
 		} catch (Exception e) {
@@ -365,17 +379,13 @@ public class Library {
 	 */
 	public static int readInt() {
 		Scanner readInt = new Scanner(System.in);
-	  	end = false;
 	  	int numInserito = 0;
-	  	do
-	  	{	
-	  		if(readInt.hasNextInt())
+	  	    if(readInt.hasNextInt())
 	  		{
-	  			end = true ;
+	  			boolean end = true ;
 	  			numInserito = readInt.nextInt();
 	  		}
-	  		else System.out.println(view.MG_ERRORE);
-	  	}while(!end);
+	  		else System.out.println(View.MG_ERRORE);
 	  	return numInserito;
 	}
 	
@@ -397,9 +407,8 @@ public class Library {
      */
 	public static String readStringNotNull() throws Exception
 	{
-	   end = false;
+	   boolean end = false;
 	   String stringa = null;
-	   
 	   do
 	   {
 		 stringa = readString();
@@ -407,8 +416,8 @@ public class Library {
 		  {
 			 end = true;
 		  }
-		 else System.out.println(view.MG_ERRORE);
-	   } 
+		 else System.out.println(View.MG_ERRORE);
+	   }
 	   while(!end);
 	   return stringa;
 	}

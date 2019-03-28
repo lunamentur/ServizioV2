@@ -27,6 +27,11 @@ public class Resource {
         this.title=title;
         this.license=license;
     }
+
+
+    /**
+     * GET & SET
+     */
     public Integer[] getLicense() {
         return license;
     }

@@ -2,11 +2,11 @@ package operator;
 import database.Database;
 import library.Library;
 import java.time.LocalDate;
-import java.time.Period;
 
 /**
  * Classe User, ovvero la classe associata all'utente/al fruitore dei servizi di prestito temporaneo. 
- * @author Reda, Simona
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
  */
 public class User extends Admin {
     private String name, surname, password, username;

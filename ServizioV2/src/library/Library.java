@@ -64,7 +64,7 @@ public class Library {
 		end=false;
 		while(!end){
 			username=insertString(view.USER_NAME);
-			if(Database.checkIfUser(username)){
+			if(!Database.checkIfUser(username)){
 				end=true;
 			}
 			else view.stampaRichiestaSingola(view.USERNAME_ESISTE);
@@ -141,18 +141,14 @@ public class Library {
 		}
 	}
 
-	/**
-	 * Metodo che controlla che l'iscrizione dell'user sia scaduta o nel range impostato per il rinnovo anticipato.
-	 * @return true se l'iscrizione dell'user è scaduta, quindi può essere rinnovata.
-	 * @return false se l'iscrizione dell'user non è scaduta e non è nel range dei giorni di rinnovo.
-	 */
-	public static boolean isExpired(User user){
-		if(user.getRegistrationDate().plusYears(rangeYear).isAfter(LocalDate.now()) || user.getRegistrationDate().plusDays(rangeDay).isAfter(LocalDate.now())){
-			return true;
-		}
-		return false;
-	}
-
+    /**
+     * Metodo che controlla che l'iscrizione dell'user sia scaduta o nel range impostato per il rinnovo anticipato.
+     * @return true se l'iscrizione dell'user è scaduta, quindi può essere rinnovata.
+     * @return false se l'iscrizione dell'user non è scaduta e non è nel range dei giorni di rinnovo.
+     */
+    public static boolean isExpired(User user){
+        return user.getRegistrationDate().plusYears(rangeYear).isBefore(LocalDate.now()) && user.getRegistrationDate().plusDays(rangeDay).isBefore(LocalDate.now());
+    }
 
 
 	/**

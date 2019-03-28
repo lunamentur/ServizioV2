@@ -34,6 +34,8 @@ public class User extends Admin {
         this.surname = surname;
         this.birthDate = birthDate;
         this.registrationDate = registrationDate;
+        this.username = username;
+        this.password = password;
         this.isAdmin=false;
     }
     

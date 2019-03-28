@@ -77,7 +77,7 @@ public class Main {
 							 */
 							Library.actionAdmin();
 						}
-					}else System.out.println(View.MG_ERRORE);
+					}else System.out.println("Autenticazione non e\' andata a buon fine.");
 					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
          			break;
 

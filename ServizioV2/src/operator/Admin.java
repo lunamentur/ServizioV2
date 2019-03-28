@@ -1,7 +1,9 @@
 package operator;
-
-import java.time.LocalDate;
-
+/**
+ * Classe admin
+ * @author Simona Ramazzotti, Reda Kassame
+ * @version 2
+ */
 public class Admin {
     private String password, username;
     private boolean isAdmin;

@@ -1,16 +1,14 @@
 import database.Database;
 import library.Library;
-import operator.Admin;
 import view.View;
-
 import java.time.LocalDate;
-
-import static library.Library.readStringNotNull;
-import static library.Library.registrationProcess;
 import operator.*;
-import resource.*;
-import database.*;
 
+/**
+ * Classe main del programma servizio temporaneo di prestiti.
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
+ */
 public class Main {
     public static void main(String[] args) {
 
@@ -25,11 +23,11 @@ public class Main {
           * Scelta da parte dell'utente di iscriversi oppure di autenticarsi.
 		  * Se si autentica come Admin gli vengono elencate alcune azioni da poter svolgere.
           */
-         view.stampaRichiestaSingola(View.MG_INIZIALE);
-		 view.stampaMenuSpecifico(View.RICHIESTE_MENU_INIZIALE);
-		 end = false;
+         end = false;
      	do
      	{
+			view.stampaRichiestaSingola(View.MG_INIZIALE);
+			view.stampaMenuSpecifico(View.RICHIESTE_MENU_INIZIALE);
 			choise=Library.readInt();
      		switch(choise){
          		
@@ -46,6 +44,7 @@ public class Main {
 
 					Library.registrationProcess();
 					System.out.println(View.GRAZIE_ISCRIZIONE);
+					view.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
 					break;
          			
          	/**
@@ -70,25 +69,20 @@ public class Main {
 					 */
 					if(Library.checkAdminIfTrue(Database.getUser(username))) {
 						/**
-						 * Essendo Admin mostro il menu\' delle azioni che possono essere svolte.
+						 * Se l'utente accede al servizio coi privilegi di Admin allora puo\' svolgere determinate azioni.
+						 * Azioni sono: visualizzare elenco utenti, visualizzare l'elenco risorse, aggiungere nuova risorsa all'elenco e rimuovere risorsa dall'elenco.
 						 */
-						choise=3;
+						Library.actionAdmin();
 					}
-
-
-
+					view.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
          			break;
 
 				/**
-				 * Azioni Admin.
+				 * Metodo nascosto creazione Admin.
  				 */
-				case 3:
-					/**
-					 * Se l'utente accede al servizio coi privilegi di Admin allora puo\' svolgere determinate azioni.
-					 * Azioni sono: visualizzare l'elenco risorse, aggiungere nuova risorsa all'elenco e rimuovere risorsa dall'elenco.
-					 */
-					Library.actionAdmin();
-
+				case 666:
+					//Library.actionAdmin();
+					view.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
 					break;
          	
          		default:
@@ -100,8 +94,6 @@ public class Main {
 					System.out.println(View.FINE_MENU);
 					break;
      		}
-     		view.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
-
 		}while(!end);
      }
 

@@ -9,12 +9,9 @@ import resource.*;
 
 
 /**
- * Classe intermedia che permette l'interazione tra la classe Admin-User e la classe Database.
- * @author Reda , Simona
- *
- *
- *
- * MANCANO: check sul username che deve essere univoco durante la creazione, stessa cosa per il barcode del libro (se uguale bisogna incrementare il numero di licenze in posizione uno)
+ * Classe intermedia che permette l'interazione tra la classe User e la classe Database.
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
  */
 public class Library {
 	
@@ -203,6 +200,12 @@ public class Library {
 					Database.removeBook(number);
 					break;
 
+				/**
+				 * Visualizzazione dell'elenco delle risorse.
+				 */
+				case 4:
+					Database.listUsers();
+					break;
 				/**
 				 * Fine della stampa delle richieste del Menu.
 				 */

@@ -1,9 +1,8 @@
 package database;
 import operator.User;
-import resource.Resource;
+import resource.Book;
 import view.*;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashMap;
@@ -12,7 +11,8 @@ import java.util.Map;
 
 /**
  * Classe Database che racchiude metodi e gestione del database in cui sono raccolti tutti gli user e oggetti inerenti.
- * @author Reda, Simona
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
  */
 public class Database {
     private static View view=new View();
@@ -128,15 +128,16 @@ public class Database {
      * Medoto che permette l'inserimento di un nuovo libro, oggetto di tipo Book, all'interno della nostra lista di libri, HashMap.
      */
     public static void insertBook(Book newbook){
-        int barcode= newbook.getBarcode();
-        bookList.put(, newbook); //non capisco perchè mi dia errore.....
+        bookList.put(newbook.getBarcode(), newbook); //non capisco perchè mi dia errore.....
         System.out.println("<+> New book added!");
     }
     /**
      * Metodo, di stampa, che permette di visualizzare a video la lista di tutti i libri all'interno del database, l'HashMap.
      */
     public static void listBook(){
-        System.out.println(bookList);
+        for (Map.Entry<Integer,Book> book: bookList.entrySet()){
+            System.out.println(book.toString());
+        }
     }
 
     /**

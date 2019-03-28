@@ -1,8 +1,9 @@
 package view;
 /**
- * @author Reda , Simona
  * Classe View col compito di generare il menu' iniziale con cui si interfaccera' l'utente finale e
  * altri metodi del tipo .toString() al fine di visualizzare a video messaggi di errore, domande, simboli e altro.
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
  */
 public class View {
 
@@ -46,7 +47,8 @@ public class View {
      */
     public final static String [] RICHIESTE_MENU_ADMIN ={" VISUALIZZARE l'elenco delle risorse.",
             " AGGIUNGERE una risorsa dall'elenco. ",
-            " RIMUOVERE una risorsa dall'elenco. " };
+            " RIMUOVERE una risorsa dall'elenco. " ,
+            " VISUALIZZARE l'elenco degli attuali utenti"};
     public final static String BARCODE =" Inserisci BARCODE: ";
     public final static String GENERE =" Inserisci GENERE: ";
     public final static String AUTORI =" Inserisci AUTORE/I:  ";

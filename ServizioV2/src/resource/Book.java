@@ -21,6 +21,9 @@ public class Book extends Resource {
     /**
      * Get and Set
      */
+
+
+
     public String getGener() {
         return gener;
     }
@@ -76,5 +79,16 @@ public class Book extends Resource {
 
     public void setAuthor(ArrayList<String> author) {
         this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return title + "  {" +
+                " barcode=  '" + barcode + '\'' +
+                ", autori=  '" + author + '\'' +
+                ", lingue=  '" + langues + '\'' +
+                ", anno di pubblicazione=  " + yearPub +
+                ", genere=  " + gener +
+                "  }";
     }
 }

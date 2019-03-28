@@ -52,7 +52,7 @@ public class Library {
         User user = new User(insertString(view.NOME), insertString(view.COGNOME), insertUserName(), insertString(view.PASSWORD), insertDate(), LocalDate.now());
         if(Database.checkIf18(user.getBirthDate()) != false){
             Database.insertUser(user);
-
+            System.out.println(View.GRAZIE_ISCRIZIONE);
         } else System.out.println(View.MINORENNE);
     }
 
@@ -114,10 +114,6 @@ public class Library {
 			password=insertString(view.PASSWORD);
 			if(Database.checkLoginIfTrue(username,password)) {
 				System.out.println(view.AUTENTICAZIONE_SUCCESSO);
-                /**
-                 * Controllo se l'iscrizione è scaduta.
-                 */
-                renewalRegistration(Database.getUser(username));
                 end = true;
 			}
 			else {

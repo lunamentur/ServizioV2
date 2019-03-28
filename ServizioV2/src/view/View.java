@@ -41,6 +41,8 @@ public class View {
     public final static String YEAR ="Inserisci ANNO:";
     public final static String USERNAME_ESISTE="Riprova, hai inserito un USERNAME esistente, scegline uno diverso.\n";
 
+    public final static String MINORENNE=" Non puoi iscriverti servizio poiche\' sei minorenne.";
+
 
     /**
      * Stringhe COSTANTI associate all'Admin e Risorse.

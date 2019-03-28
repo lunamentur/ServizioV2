@@ -52,7 +52,8 @@ public class Library {
         User user = new User(insertString(view.NOME), insertString(view.COGNOME), insertUserName(), insertString(view.PASSWORD), insertDate(), LocalDate.now());
         if(Database.checkIf18(user.getBirthDate()) != false){
             Database.insertUser(user);
-        }
+
+        } else System.out.println(View.MINORENNE);
     }
 
 	/**
@@ -79,7 +80,7 @@ public class Library {
 	 * @return birthDate
      */
     public static LocalDate insertDate(){
-    	end= false;
+    	boolean end= false;
 		view.stampaRichiestaSingola(view.DATA_NASCITA);
     	while(!end){
 			view.stampaRichiestaSingola(view.YEAR);
@@ -90,15 +91,12 @@ public class Library {
     			month= readInt();
 				view.stampaRichiestaSingola(view.DAY);
     			day=readInt();
-    			if(String.valueOf(month).length()==2 && String.valueOf(day).length()==2)
-    			{
+                if((String.valueOf(month).length()<=2 && month <= 12 ) && (( String.valueOf(day).length() <= 2) && day <= 31)){
     				birthDate= LocalDate.of(year,month,day);
     				end=true;
     			}
     		}
-    		else {
-				System.out.println(MG_ERRORE);
-			}
+    		else System.out.println(MG_ERRORE);
     	}
     	return birthDate;
     }
@@ -109,18 +107,26 @@ public class Library {
 	 * Se fallisce continua a ciclare finchè non ci si autentica correttamente.
      */
 	public static String checkLogin(){
-		end = false;
+		boolean end = false;
 		do
 		{
 			username=insertString(view.USER_NAME);
 			password=insertString(view.PASSWORD);
 			if(Database.checkLoginIfTrue(username,password)) {
 				System.out.println(view.AUTENTICAZIONE_SUCCESSO);
-				end = true;
+                /**
+                 * Controllo se l'iscrizione è scaduta.
+                 */
+                renewalRegistration(Database.getUser(username));
+                end = true;
 			}
 			else {
-				System.out.println(MG_ERRORE+ "Riprova.");
-				end=false;
+                System.out.println(View.MG_ERRORE+ View.MG_ANCORA +" premi 0 per riprovare");
+                choise= readInt();
+                /**
+                 * Continua a ciclare se viene premuto 0, altrimenti si esce dal ciclo.
+                 */
+                if(choise!=0) end=true;
 			}
 		}while(!end);
 		return username;

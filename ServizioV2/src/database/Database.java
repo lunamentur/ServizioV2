@@ -56,7 +56,7 @@ public class Database {
      * @return true login riuscito corettamente.
      */
     public static boolean checkLoginIfTrue(String username, String password){
-        if(userList.containsValue(username) && userList.get(username).getPassword() == password) return true;
+        if(userList.containsKey(username) && userList.get(username).getPassword() == password) return true;
         else return false;
     }
 
@@ -80,7 +80,7 @@ public class Database {
 
     /**
      * Metodo di controllo che verifica che l'user, oggetto di tipo User, sia maggiorenne.
-     * Pertanto confronta la data di nascita, di tipo LocalDate, con la data attuale, LocalDate.now(), affinche\' sia 
+     * Pertanto confronta la data di nascita, di tipo LocalDate, con la data attuale, LocalDate.now(), affinche\' sia
      * maggiore o uguale a 18 anni.
      * @param birthDate  Data di nascita dell'user, di tipo LocalDate. E\' richiesto che sia maggiorenne per poter diventare utente dei servizi.
      * @return false se l'user non e\' maggiorenne. (e quindi non ha accesso ai servizi di prestito temporaneo)
@@ -89,12 +89,7 @@ public class Database {
     public static boolean checkIf18(LocalDate birthDate){
         LocalDate now = LocalDate.now();
         int age = Period.between(birthDate,now).getYears();
-        if(age > 18){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return age >= 18;
     }
 
 

@@ -411,7 +411,6 @@ public class Library {
 	   String stringa = null;
 	   do
 	   {
-	   	System.out.println(" Inserisci nuovamente.  ");
 		 stringa = readString();
 		 if (stringa.length() > 0)
 		  {

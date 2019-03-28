@@ -56,7 +56,7 @@ public class Database {
      * @return true login riuscito corettamente.
      */
     public static boolean checkLoginIfTrue(String username, String password){
-        if(userList.containsKey(username) && userList.get(username).getPassword() == password) return true;
+        if(userList.containsKey(username) && userList.get(username).getPassword().equals(password)) return true;
         else return false;
     }
 
@@ -66,7 +66,7 @@ public class Database {
      * return false altrimenti
      */
     public static boolean checkIfUser(String username){
-        return userList.containsValue(username);
+        return userList.containsKey(username);
     }
 
     /**
@@ -112,7 +112,7 @@ public class Database {
      * return false altrimenti
      */
     public static boolean checkIfBook(int barcode){
-         return bookList.containsValue(barcode);
+         return bookList.containsKey(barcode);
     }
 
     /**

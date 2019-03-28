@@ -132,7 +132,10 @@ public class Library {
                 /**
                  * Continua a ciclare se viene premuto 0, altrimenti si esce dal ciclo.
                  */
-                if(choise!=0) end=true;
+                if(choise!=0) {
+                	username="_error_";
+                	end=true;
+                }
 			}
 		}while(!end);
 		return username;
@@ -305,8 +308,8 @@ public class Library {
 	 */
 	public static int insertNumberEqual(String tipoInserimento, int vincolo){
 		boolean end= false;
-		View.stampaRichiestaSingola(tipoInserimento);
 		while(!end){
+			View.stampaRichiestaSingola(tipoInserimento);
 			number= readInt();
 			if(String.valueOf(year).length()==vincolo)
 			{
@@ -351,9 +354,9 @@ public class Library {
     }
 
 	/**
-	 *
-	 * @param tipoInserimento
-	 * @return
+	 * Metodo che permette l'inserimento di una stringa.
+	 * @param tipoInserimento richiesta da soddisfare.
+	 * @return stringa.
 	 */
 	public static String insertString(String tipoInserimento) {
 		View.stampaRichiestaSingola(tipoInserimento);
@@ -406,16 +409,16 @@ public class Library {
 	{
 	   boolean end = false;
 	   String stringa = null;
-	   
 	   do
 	   {
+	   	System.out.println(" Inserisci nuovamente.  ");
 		 stringa = readString();
 		 if (stringa.length() > 0)
 		  {
 			 end = true;
 		  }
 		 else System.out.println(View.MG_ERRORE);
-	   } 
+	   }
 	   while(!end);
 	   return stringa;
 	}

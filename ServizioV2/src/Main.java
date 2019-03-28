@@ -47,7 +47,6 @@ public class Main {
      				 */
 
 					Library.registrationProcess();
-					System.out.println(View.GRAZIE_ISCRIZIONE);
 					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
 					break;
          			
@@ -60,35 +59,28 @@ public class Main {
 					 * Se la password è la stessa allora viene autenticato con successo, altrimenti
          			 * continua a ciclare oppure si termina il programma.
                      */
-					username=Library.checkLogin();
-
-					/**
-					 * Una volta che il Login è andato a buon fine controlliamo che l'iscrizione dell'user sia ancora valida.
-					 * Se non lo è, ovvero sono decaduti i privilegi, può avvenire il rinnovo dell'iscrizione.
-					 */
-					Library.renewalRegistration(Database.getUser(username));
-
-					/**
-					 * Verifichiamo se e\' un Admin.
-					 */
-					if(Library.checkAdminIfTrue(Database.getUser(username))) {
+         			username=Library.checkLogin();
+         			if(!username.equals("_error_")){
 						/**
-						 * Se l'utente accede al servizio coi privilegi di Admin allora puo\' svolgere determinate azioni.
-						 * Azioni sono: visualizzare elenco utenti, visualizzare l'elenco risorse, aggiungere nuova risorsa all'elenco e rimuovere risorsa dall'elenco.
+						 * Una volta che il Login è andato a buon fine controlliamo che l'iscrizione dell'user sia ancora valida.
+						 * Se non lo è, ovvero sono decaduti i privilegi, può avvenire il rinnovo dell'iscrizione.
 						 */
-						Library.actionAdmin();
-					}
+						Library.renewalRegistration(Database.getUser(username));
+
+						/**
+						 * Verifichiamo se e\' un Admin.
+						 */
+						if(Library.checkAdminIfTrue(Database.getUser(username))) {
+							/**
+							 * Se l'utente accede al servizio coi privilegi di Admin allora puo\' svolgere determinate azioni.
+							 * Azioni sono: visualizzare elenco utenti, visualizzare l'elenco risorse, aggiungere nuova risorsa all'elenco e rimuovere risorsa dall'elenco.
+							 */
+							Library.actionAdmin();
+						}
+					}else System.out.println(View.MG_ERRORE);
 					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
          			break;
 
-				/**
-				 * Metodo nascosto creazione Admin.
- 				 */
-				case 666:
-					//Library.actionAdmin();
-					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
-					break;
-         	
          		default:
          			View.stampaRichiestaSingola(View.MG_ERRORE);
          			break;

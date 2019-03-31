@@ -21,6 +21,7 @@ public class Main {
 		 */
 		Database.initAllObject();
 
+		View.stampaRichiestaSingola(View.MG_INIZIALE);
 		int choise;
 		boolean end;
          /**
@@ -30,7 +31,6 @@ public class Main {
          end = false;
      	do
      	{
-			View.stampaRichiestaSingola(View.MG_INIZIALE);
 			View.stampaMenuSpecifico(View.RICHIESTE_MENU_INIZIALE);
 			choise=Library.readInt();
      		switch(choise){
@@ -70,7 +70,7 @@ public class Main {
 						/**
 						 * Verifichiamo se e\' un Admin.
 						 */
-						if(Library.checkAdminIfTrue(Database.getUser(username))) {
+						if(Database.checkAdminIfTrue(username)) {
 							/**
 							 * Se l'utente accede al servizio coi privilegi di Admin allora puo\' svolgere determinate azioni.
 							 * Azioni sono: visualizzare elenco utenti, visualizzare l'elenco risorse, aggiungere nuova risorsa all'elenco e rimuovere risorsa dall'elenco.

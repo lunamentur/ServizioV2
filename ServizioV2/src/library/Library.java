@@ -7,6 +7,8 @@ import java.util.*;
 import operator.*;
 import resource.*;
 
+import javax.xml.crypto.Data;
+
 
 /**
  * Classe intermedia che permette l'interazione tra la classe User e la classe Database.
@@ -47,7 +49,7 @@ public class Library {
 	 */
     public static void registrationProcess(){
         User user = new User(insertString(View.NOME), insertString(View.COGNOME), insertUserName(), insertString(View.PASSWORD), insertDate(), LocalDate.now());
-        if(Database.checkIf18(user.getBirthDate()) != false){
+        if(Database.checkIf18(user.getBirthDate())){
             Database.insertUser(user);
             registrationAdmin(user);
             System.out.println(View.GRAZIE_ISCRIZIONE);
@@ -62,7 +64,8 @@ public class Library {
 		System.out.println("Sei un admin? se SI premi 0.");
 		choise=readInt();
 		if(choise==0){
-			user.setAdmin(true);
+			Database.isAdmin(user.getUsername());
+			System.out.println("Registrazione admin avvenuta.");
 		}
 	}
 
@@ -170,14 +173,6 @@ public class Library {
 	 * METODI CONTROLLO ADMIN
 	 */
 
-	/**
-	 * Metodo che dato un oggetto di tipo user in ingresso ci informa se e\' un Admin oppure un semplice fruitore del servizio.
-	 * @param user
-	 * @return user.getIsAdmni() true or false.
-	 */
-	public static boolean checkAdminIfTrue(User user){
-		return user.getIsAdmin();
-	}
 
 	/**
 	 * Metodo che permette di gestire le azioni che possono essere svolte dall'Admin.
@@ -377,16 +372,17 @@ public class Library {
 	 * Metodi di controllo dell'inserimento da tastiera di numeri di tipo interi.
 	 * @return numeroInserito numero valido inserito da tastiera.
 	 */
-	public static int readInt() {
+	public static int readInt (){
 		Scanner readInt = new Scanner(System.in);
-	  	int numInserito = 0;
-	  	    if(readInt.hasNextInt())
-	  		{
-	  			boolean end = true ;
-	  			numInserito = readInt.nextInt();
-	  		}
-	  		else System.out.println(View.MG_ERRORE);
-	  	return numInserito;
+		int numeroInserito;
+		do {
+			while (!readInt.hasNextInt()) {
+				String input = readInt.next();
+				System.out.println(View.MG_ERRORE);
+			}
+			numeroInserito = readInt.nextInt();
+		} while (numeroInserito < 0 && !(String.valueOf(numeroInserito).equals(null)));
+		return numeroInserito;
 	}
 	
 	/**

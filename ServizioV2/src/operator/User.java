@@ -106,4 +106,14 @@ public class User extends Admin {
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
+    @Override
+    public String toString() {
+        return username + "  {" +
+                " name=  '" + name + '\'' +
+                ", surname=  '" + surname + '\'' +
+                ", username=  '" + username + '\'' +
+                ", birthDate=  " + birthDate +
+                ", registrationDate=  " + registrationDate +
+                "  }";
+    }
 }

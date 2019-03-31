@@ -69,6 +69,19 @@ public class Database {
         return userList.containsKey(username);
     }
 
+
+    /**
+     * Metodo che dato un oggetto di tipo user in ingresso ci informa se e\' un Admin oppure un semplice fruitore del servizio.
+     * @param username
+     * @return user.getIsAdmni() true or false.
+     */
+    public static boolean checkAdminIfTrue(String username){
+        return userList.get(username).getIsAdmin();
+    }
+
+    public static void isAdmin(String username){
+        userList.get(username).setAdmin(true);
+    }
     /**
      * Metodo che ritorna l'user, l'oggetto di tipo User, preso dal Database.
      * @param username

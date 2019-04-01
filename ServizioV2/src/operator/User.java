@@ -94,6 +94,9 @@ public class User extends Admin {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 
     public LocalDate getRegistrationDate() {
         return registrationDate;

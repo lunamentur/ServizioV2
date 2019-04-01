@@ -23,20 +23,16 @@ public class Library {
 	/**
 	 * Creazione di variabili e oggetti utili per i metodi di controllo relativi all'User.
 	 */
-	private static String string, password,username;
+	private static String string;
 	private static int year, month, day, choise;
 	private static long rangeYear=5;
 	private static long rangeDay=-10;
-	/**
-	 * Definizione dell'istanza isAdmin che permette di distinguere l'Admin dall'utente finale. di conseguenza impostiamo che ritorni false.
-	 */
-	private static boolean isAdmin=false;
 
 	/**
 	 * Creazione di variabili e oggetti utili per i metodi di controllo relativi alle risorse.
 	 */
 	private static Integer [] licenseList= {0,0}; //licenze con due componenti.
-	private static int number,barcode;
+	private static int barcode;
 
 
 	/**
@@ -77,7 +73,7 @@ public class Library {
 	public static String insertUserName(){
 		boolean end=false;
 		while(!end){
-			username=insertString(View.USER_NAME);
+			String username=insertString(View.USER_NAME);
 			if(!Database.checkIfUser(username)){
 				end=true;
 			}
@@ -123,8 +119,8 @@ public class Library {
 		boolean end = false;
 		do
 		{
-			username=insertString(View.USER_NAME);
-			password=insertString(View.PASSWORD);
+			String username=insertString(View.USER_NAME);
+			String password=insertString(View.PASSWORD);
 			if(Database.checkLoginIfTrue(username,password)) {
 				System.out.println(View.AUTENTICAZIONE_SUCCESSO);
                 end = true;
@@ -178,9 +174,10 @@ public class Library {
 	 * Metodo che permette di gestire le azioni che possono essere svolte dall'Admin.
 	 */
 	public static void actionAdmin(){
-		View.stampaMenuSpecifico(View.RICHIESTE_MENU_ADMIN);
 		boolean end= false;
 		do{
+			View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
+			View.stampaMenuSpecifico(View.RICHIESTE_MENU_ADMIN);
 			choise= readInt();
 			switch(choise)
 			{
@@ -202,7 +199,7 @@ public class Library {
 				 */
 				case 3:
 					View.stampaRichiestaSingola(View.BARCODE);
-					number= readInt();
+					int number= readInt();
 					Database.removeBook(number);
 					break;
 
@@ -216,7 +213,7 @@ public class Library {
 				 * Fine della stampa delle richieste del Menu.
 				 */
 				case 0:
-					end = false;
+					end = true;
 					break;
 
 				/**
@@ -226,8 +223,6 @@ public class Library {
 					System.out.println(MG_ERRORE);
 					break;
 			}
-			View.stampaMenuSpecifico(View.RICHIESTE_MENU_ADMIN);
-			View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
 		}while(!end);
 	}
 
@@ -240,7 +235,6 @@ public class Library {
 	 * Metodo che assembla i metodi per la registrazione con i relativi controlli e salva il nuovo book,
 	 * oggetto di tipo Book, all'interno del Database.
 	 */
-	//barcode,String title, ArrayList author, ArrayList langues, int numPage, int yearPub, String gener, Integer [] license
 	public static void createBook(int barcode){
 		Book book = new Book(barcode, insertString(View.TITOLO), insertArray(View.AUTORI), insertArray(View.LINGUE), insertNum(View.NUM_PAG), insertNumberEqual(View.YEAR,4), insertString(View.GENERE), licenseList);
 		Database.insertBook(book);
@@ -291,20 +285,20 @@ public class Library {
 	 */
 	public static int insertNum(String tipoInserimento){
 		View.stampaRichiestaSingola(tipoInserimento);
-		number= readInt();
+		int number= readInt();
 		return number;
-
 	}
 
 	/**
 	 * Metodo che permette di inserire numeri e controllare se rispettano la lunghezza. Come nel caso dell'anno, deve avere 4 cifre.
-	 * @param tipoInserimento
-	 * @param vincolo
-	 * @return
+	 * @param tipoInserimento stringa che permette di generalizzare il metodo di inserimento, stampandola a video.
+	 * @param vincolo vincolo di lunghezza minima del numero inserito, la size minima da rispettare.
+	 * @return numero richiesto da tastiera inserito dall'utente.
 	 */
 	public static int insertNumberEqual(String tipoInserimento, int vincolo){
 		boolean end= false;
-		while(!end){
+		int number=0;
+		do{
 			View.stampaRichiestaSingola(tipoInserimento);
 			number= readInt();
 			if(String.valueOf(year).length()==vincolo)
@@ -314,10 +308,9 @@ public class Library {
 			else {
 				System.out.println(MG_ERRORE);
 			}
-		}
+		}while(!end);
 		return number;
 	}
-
 
 
     /**

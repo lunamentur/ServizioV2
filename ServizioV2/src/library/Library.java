@@ -226,6 +226,7 @@ public class Library {
 					System.out.println(MG_ERRORE);
 					break;
 			}
+			View.stampaMenuSpecifico(View.RICHIESTE_MENU_ADMIN);
 			View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
 		}while(!end);
 	}
@@ -251,7 +252,7 @@ public class Library {
 	 * Se la risorsa esiste gia\' allora incrementa il numero di licenze.
 	 */
 	public static void createBookProcess(){
-		barcode=insertBarcode(6);
+		barcode=insertBarcode(3);
 		if(Database.checkIfBook(barcode)){
 			/**
 			 * Incremenenta il numero di copie disponibili se gia\' presente una risorssa uguale.

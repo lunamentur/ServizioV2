@@ -54,23 +54,8 @@ public class User extends Admin {
         return isAdmin;
     }
 
-    public String getName() {
-        return name;
-    }
     public String getUsername() {
         return username;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getPassword() {
@@ -91,9 +76,6 @@ public class User extends Admin {
     /**
      * Metodo per fare il set della data di nascita dell'oggetto di tipo User.
      */
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }

@@ -23,7 +23,7 @@ public class Library {
 	/**
 	 * Creazione di variabili e oggetti utili per i metodi di controllo relativi all'User.
 	 */
-	private static String string;
+	private static String string, username;
 	private static int year, month, day, choise;
 	private static long rangeYear=5;
 	private static long rangeDay=-10;
@@ -73,7 +73,7 @@ public class Library {
 	public static String insertUserName(){
 		boolean end=false;
 		while(!end){
-			String username=insertString(View.USER_NAME);
+			username=insertString(View.USER_NAME);
 			if(!Database.checkIfUser(username)){
 				end=true;
 			}
@@ -117,9 +117,10 @@ public class Library {
      */
 	public static String checkLogin(){
 		boolean end = false;
+		String username;
 		do
 		{
-			String username=insertString(View.USER_NAME);
+			username=insertString(View.USER_NAME);
 			String password=insertString(View.PASSWORD);
 			if(Database.checkLoginIfTrue(username,password)) {
 				System.out.println(View.AUTENTICAZIONE_SUCCESSO);

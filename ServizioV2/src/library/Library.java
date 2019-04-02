@@ -305,7 +305,7 @@ public class Library {
 		do{
 			View.stampaRichiestaSingola(tipoInserimento);
 			number= readInt();
-			if(String.valueOf(year).length()==vincolo)
+			if(String.valueOf(number).length()==vincolo)
 			{
 				end=true;
 			}

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f704eca2-3f89-4ba9-aed5-3b06d04026d0" name="Default" comment="sistemato metodo rinnovo ed eliminato get e set inutili">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operator/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/operator/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
+    <list default="true" id="f704eca2-3f89-4ba9-aed5-3b06d04026d0" name="Default" comment="sistemato metodo rinnovo, sistemati metodo remove book">
+      <change beforePath="$PROJECT_DIR$/out/production/ServizioV1/database/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServizioV1/database/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServizioV1/library/Library.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServizioV1/library/Library.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServizioV1/view/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServizioV1/view/View.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/library/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/Library.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/library/Library.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="62" column="49" lean-forward="true" selection-start-line="62" selection-start-column="12" selection-end-line="62" selection-end-column="49" />
+            <state relative-caret-position="256">
+              <caret line="260" column="10" selection-start-line="260" selection-start-column="10" selection-end-line="260" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -55,7 +55,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/resource/Resource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
+            <state relative-caret-position="104">
               <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
             </state>
           </provider>
@@ -82,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/database/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="206" column="8" selection-start-line="206" selection-start-column="8" selection-end-line="206" selection-end-column="8" />
+            <state relative-caret-position="848">
+              <caret line="168" column="69" selection-start-line="168" selection-start-column="69" selection-end-line="168" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -110,10 +110,10 @@
         <option value="$PROJECT_DIR$/src/resource/Resource.java" />
         <option value="$PROJECT_DIR$/src/resource/Book.java" />
         <option value="$PROJECT_DIR$/src/operator/User.java" />
-        <option value="$PROJECT_DIR$/src/library/Library.java" />
         <option value="$PROJECT_DIR$/src/operator/Admin.java" />
         <option value="$PROJECT_DIR$/src/view/View.java" />
         <option value="$PROJECT_DIR$/src/database/Database.java" />
+        <option value="$PROJECT_DIR$/src/library/Library.java" />
       </list>
     </option>
   </component>
@@ -280,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554217895239</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="sistemato metodo rinnovo, sistemati metodo remove book">
+      <created>1554219256618</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1554219256618</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -301,7 +308,7 @@
       <window_info anchor="bottom" id="Messages" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" />
-      <window_info anchor="bottom" x="467" y="193" width="621" height="208" id="Run" order="3" weight="0.32911393" />
+      <window_info active="true" anchor="bottom" x="467" y="193" width="621" height="208" id="Run" order="3" visible="true" weight="0.32911393" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -333,7 +340,7 @@
       <window_info anchor="bottom" id="Messages" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" />
-      <window_info active="true" anchor="bottom" x="467" y="193" width="621" height="208" id="Run" order="3" visible="true" weight="0.32911393" />
+      <window_info anchor="bottom" x="467" y="193" width="621" height="208" id="Run" order="3" visible="true" weight="0.32911393" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -360,7 +367,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ho sistemato delle cose ma non funziona." />
     <MESSAGE value="sistemato metodo rinnovo ed eliminato get e set inutili" />
-    <option name="LAST_COMMIT_MESSAGE" value="sistemato metodo rinnovo ed eliminato get e set inutili" />
+    <MESSAGE value="sistemato metodo rinnovo, sistemati metodo remove book" />
+    <option name="LAST_COMMIT_MESSAGE" value="sistemato metodo rinnovo, sistemati metodo remove book" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.project">
@@ -390,13 +398,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/resource/Resource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
@@ -411,17 +412,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/library/Library.java">
+    <entry file="file://$PROJECT_DIR$/src/resource/Resource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="62" column="49" lean-forward="true" selection-start-line="62" selection-start-column="12" selection-end-line="62" selection-end-column="49" />
+        <state relative-caret-position="104">
+          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/database/Database.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="206" column="8" selection-start-line="206" selection-start-column="8" selection-end-line="206" selection-end-column="8" />
+        <state relative-caret-position="848">
+          <caret line="168" column="69" selection-start-line="168" selection-start-column="69" selection-end-line="168" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/library/Library.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="260" column="10" selection-start-line="260" selection-start-column="10" selection-end-line="260" selection-end-column="10" />
         </state>
       </provider>
     </entry>

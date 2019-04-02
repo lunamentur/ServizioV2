@@ -40,14 +40,6 @@ public class User extends Admin {
     }
     
     /**
-     *  Metodo di tipo boolean che permette di verificare se l'utente e\' maggiorenne: true se maggiorenne, false altrimenti.
-     * @param user oggetto di tipo user, che rappresenta il fruitore del serizio
-     */
-    public boolean isUserAdult(User user) {
-        return true;
-    }
-    
-    /**
      * Metodi di Set e Get della classe User.
      */
     public boolean getIsAdmin() {
@@ -91,6 +83,7 @@ public class User extends Admin {
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
+
     @Override
     public String toString() {
         return username + "  {" +

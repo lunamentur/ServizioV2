@@ -26,12 +26,12 @@ public class Library {
 	private static String string, username;
 	private static int year, month, day, choise;
 	private static long rangeYear=5;
-	private static long rangeDay=-10;
+	private static long rangeDay=10;
 
 	/**
 	 * Creazione di variabili e oggetti utili per i metodi di controllo relativi alle risorse.
 	 */
-	private static Integer [] licenseList= {0,0}; //licenze con due componenti.
+	private static Integer [] licenseList= {1,0}; //licenze con due componenti.
 	private static int barcode;
 
 
@@ -57,7 +57,7 @@ public class Library {
 	 * @param user {@link User}
 	 */
 	public static void registrationAdmin(User user){
-		System.out.println("Sei un admin? se SI premi 0.");
+		System.out.println("Sei un admin? \n se (SI) premi 0.");
 		choise=readInt();
 		if(choise==0){
 			Database.isAdmin(user.getUsername());
@@ -156,15 +156,18 @@ public class Library {
 		}
 	}
 
-    /**
-     * Metodo che controlla che l'iscrizione dell'user sia scaduta o nel range impostato per il rinnovo anticipato.
-     * @return true se l'iscrizione dell'user è scaduta, quindi può essere rinnovata.
-     * @return false se l'iscrizione dell'user non è scaduta e non è nel range dei giorni di rinnovo.
-     */
-    public static boolean isExpired(User user){
-        return user.getRegistrationDate().plusYears(rangeYear).isBefore(LocalDate.now()) && user.getRegistrationDate().plusDays(rangeDay).isBefore(LocalDate.now());
-    }
-
+	/**
+	 * Metodo che controlla che l'iscrizione dell'user sia scaduta o nel range impostato per il rinnovo anticipato.
+	 * @return true se l'iscrizione dell'user è scaduta, quindi può essere rinnovata.
+	 * @return false se l'iscrizione dell'user non è scaduta e non è nel range dei giorni di rinnovo.
+	 */
+	public static boolean isExpired(User user){
+		if(user.getRegistrationDate().plusYears(rangeYear).isEqual(LocalDate.now()) || (LocalDate.now().minusYears(rangeYear).isBefore(user.getRegistrationDate()) && LocalDate.now().minusYears(rangeYear).isAfter(user.getRegistrationDate().minusDays(rangeDay))))
+		{
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * METODI CONTROLLO ADMIN

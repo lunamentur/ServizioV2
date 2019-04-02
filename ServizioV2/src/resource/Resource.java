@@ -2,6 +2,11 @@ package resource;
 
 import java.util.ArrayList;
 
+/**
+ * Classe Risorse
+ * @author Reda Kassame, Simona Ramazzotti.
+ * @version 2
+ */
 public class Resource {
 
     String title;
@@ -15,7 +20,7 @@ public class Resource {
      * @param license La differenza fra i valori all'interno dell'array indica le copie he sono disponibili: se minore o uguale a zero non vi sono copie disponibili al prestito
      *                ovvero non vi sono licenze disponibili.
      */
-    private Integer [] license;
+    private Integer [] license= {1,0};
 
     /**
      * Costruttore della superCLASSE

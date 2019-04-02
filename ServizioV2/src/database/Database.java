@@ -151,11 +151,14 @@ public class Database {
     }
 
     /**
-     * Metodo che permette di rimuovere una risorsa dall'elenco di risorse
+     * Metodo che permette di rimuovere una risorsa dall'elenco di risorse oppure ne diminuisce le copie nell'archivio.
      */
     public static void removeBook(int barcode){
         if(checkIfBook(barcode)) {
-            bookList.remove(barcode);
+            Integer[] copie= getBook(barcode).getLicense();
+            if(copie[0]==1){
+                bookList.remove(barcode);
+            }else decrementLicense(barcode);
             view.stampaRichiestaSingola(view.MG_AZIONE_SUCCESSO);
         }
         else view.stampaRichiestaSingola(view.NON_ESISTE);
@@ -174,6 +177,17 @@ public class Database {
     }
 
     /**
+     * Metodo che decrementa il numero di copie di una specifica risorsa, lavorando sul primo indice del vettore licenze.
+     */
+    public static void decrementLicense(int barcode){
+        Integer[] copie= getBook(barcode).getLicense();
+        //prende la var in posizione zero, ovvero le copie disponibili.
+        copie[0]--;
+        //sostituisco il mio nuovo vettore col set della classe Book
+        getBook(barcode).setLicense(copie);
+    }
+
+    /**
      * Creazione di oggetti preimpostati.
      */
     public static void initAllObject() {
@@ -181,20 +195,25 @@ public class Database {
         User user1 = new User("test", "test", "test1", "test1", LocalDate.of(1996, 12, 01), LocalDate.of(2018, 01, 01));
         User user2 = new User("test", "test", "test2", "test2", LocalDate.of(2000, 12, 01), LocalDate.of(1996, 01, 01));
         User user3 = new User("test", "test", "test3", "test3", LocalDate.of(1988, 12, 01), LocalDate.of(2019, 01, 01));
+        User userRinnovo= new User("test","test","rinnovo","rinnovo",LocalDate.of(1996, 01, 01), LocalDate.of(2014, 04, 9));
+        userList.put(userRinnovo.getUsername(), userRinnovo);
         userList.put(user1.getUsername(), user1);
         userList.put(user2.getUsername(), user2);
         userList.put(user3.getUsername(), user3);
 
+        //genero admin
+        User admin = new User("admin", "admin", "admin", "admin", LocalDate.of(2000, 12, 01), LocalDate.of(2018, 01, 01));
+        admin.setAdmin(true);
+        userList.put(admin.getUsername(), admin);
+
+        //genero libri
         ArrayList<String> langues_test = new ArrayList<String>();
         ArrayList<String> author_test = new ArrayList<String>();
         Integer [] license_book1={4,0};
         Integer [] license_book2={2,0};
         Integer [] license_book3={1,0};
 
-        langues_test.add("inglese");
-        langues_test.add("spagnolo");
-        author_test.add("Gino");
-        author_test.add("Pino");
+        langues_test.add("inglese"); langues_test.add("spagnolo"); author_test.add("Gino"); author_test.add("Pino");
         Book book1= new Book(111,"title1", author_test,langues_test,200,1999,"Romanzo",license_book1 );
         Book book2= new Book(222,"title1", author_test,langues_test,100,2001,"Saggio", license_book2);
         Book book3= new Book(333,"title1", author_test,langues_test,200,2019,"Giallo",license_book3 );

@@ -9,7 +9,6 @@ public class View {
 
     public final static String FINE_MENU ="Arrivederci, grazie per aver usato i Servizi di prestito temporaneo";
     public final static String CORNICETTA ="**************************************";
-    public final static String RICHIESTA="Quale opzione desideri svolgere? ";
     public final static String MG_ERRORE="Riprova, hai inserito un valore non valido\n";
     public final static String MG_ANCORA ="Cosa desideri fare?";
     public final static String MG_SCADUTA_ISCRIZIONE ="La sua iscrizione è scaduta poiche\' ha superato i termini prescritti.";
@@ -57,7 +56,6 @@ public class View {
     public final static String NUM_PAG =" Inserisci NUMERO DI PAGINE: ";
     public final static String LINGUE =" Inserisci LINGUA/E: ";
     public final static String NON_ESISTE =" La risorsa NON e\' presente dell'elenco risorse. ";
-    //public final static String  =" Inserisci :";
     public final static String TITOLO =" Inserisci TITOLO:";
 
 

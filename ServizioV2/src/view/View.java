@@ -39,6 +39,8 @@ public class View {
     public final static String DAY ="Inserisci GIORNO:";
     public final static String YEAR ="Inserisci ANNO:";
     public final static String USERNAME_ESISTE="Riprova, hai inserito un USERNAME esistente, scegline uno diverso.\n";
+    public final  static  String SCADUTA_NON_RINNOVABILE="Devi reistrarti nuovamente, la tua iscrizione e\' scaduta e non puo\' essere rinnovata.";
+
 
     public final static String MINORENNE=" Non puoi iscriverti servizio poiche\' sei minorenne.";
 

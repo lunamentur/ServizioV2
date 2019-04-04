@@ -39,6 +39,13 @@ public class Database {
         System.out.println("<+> New user added!");
     }
     /**
+     * Metodo che permette di rimuovere un'utente dall'archivio.
+     */
+    public static void removeUser(String username){
+        userList.remove(username);
+    }
+
+    /**
      * Metodo, di stampa, che permette di visualizzare a video la lista di tutti gli user all'interno del database, l'HashMap.
      */
     public static void listUsers(){
@@ -195,11 +202,15 @@ public class Database {
         User user1 = new User("test", "test", "test1", "test1", LocalDate.of(1996, 12, 01), LocalDate.of(2018, 01, 01));
         User user2 = new User("test", "test", "test2", "test2", LocalDate.of(2000, 12, 01), LocalDate.of(1996, 01, 01));
         User user3 = new User("test", "test", "test3", "test3", LocalDate.of(1988, 12, 01), LocalDate.of(2019, 01, 01));
-        User userRinnovo= new User("test","test","rinnovo","rinnovo",LocalDate.of(1996, 01, 01), LocalDate.of(2014, 04, 9));
+        User userRinnovo= new User("test","test","rinnovo","rinnovo",LocalDate.of(1996, 01, 01), LocalDate.of(2014, 04, 18));
         userList.put(userRinnovo.getUsername(), userRinnovo);
         userList.put(user1.getUsername(), user1);
         userList.put(user2.getUsername(), user2);
         userList.put(user3.getUsername(), user3);
+
+
+        User userScaduto= new User("test","test","scaduto","scaduto",LocalDate.of(1996, 01, 01), LocalDate.of(2012, 02, 03));
+        userList.put(userScaduto.getUsername(), userScaduto);
 
         //genero admin
         User admin = new User("admin", "admin", "admin", "admin", LocalDate.of(2000, 12, 01), LocalDate.of(2018, 01, 01));

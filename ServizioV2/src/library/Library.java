@@ -7,8 +7,6 @@ import java.util.*;
 import operator.*;
 import resource.*;
 
-import javax.xml.crypto.Data;
-
 
 /**
  * Classe intermedia che permette l'interazione tra la classe User e la classe Database.
@@ -146,7 +144,7 @@ public class Library {
 	 * @param user
 	 */
 	public static void renewalRegistration(User user){
-		if(isExpired(user)){
+		if(isRenewal(user)){
 			View.stampaRichiestaSingola(View.MG_SCADUTA_ISCRIZIONE);
 			View.stampaRichiestaSingola(View.RINNOVO);
 			choise= readInt();
@@ -161,12 +159,38 @@ public class Library {
 	 * @return true se l'iscrizione dell'user è scaduta, quindi può essere rinnovata.
 	 * @return false se l'iscrizione dell'user non è scaduta e non è nel range dei giorni di rinnovo.
 	 */
-	public static boolean isExpired(User user){
+	public static boolean isRenewal(User user){
 		if(user.getRegistrationDate().plusYears(rangeYear).isEqual(LocalDate.now()) || (LocalDate.now().minusYears(rangeYear).isBefore(user.getRegistrationDate()) && LocalDate.now().minusYears(rangeYear).isAfter(user.getRegistrationDate().minusDays(rangeDay))))
 		{
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Metodo che controlla che l'iscrizione dell'user sia scaduta.
+	 * @return true se l'iscrizione dell'user è scaduta.
+	 * @return false se l'iscrizione dell'user non è scaduta.
+	 */
+	public static boolean isExpired(User user){
+		boolean equalYearCondition= user.getRegistrationDate().plusYears(rangeYear).getYear()== LocalDate.now().getYear() && LocalDate.now().isAfter(user.getRegistrationDate().plusYears(rangeYear));
+		boolean differentYearCondition= LocalDate.now().getYear()>user.getRegistrationDate().plusYears(rangeYear).getYear();
+		if( equalYearCondition || differentYearCondition)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Metodo che se l'utente ha l'iscrizione scaduta, lo contrassegna come scaduto tramite il name e non la chiave primaria username.
+	 * l'utente sarà costretto registrarsi nuovamente.
+	 */
+	public static void userExpired(User user){
+		if(isExpired(user)){
+			View.stampaRichiestaSingola(View.SCADUTA_NON_RINNOVABILE);
+			user.setName("_expired_");
+		}
 	}
 
 	/**

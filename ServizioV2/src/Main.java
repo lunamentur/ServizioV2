@@ -62,12 +62,6 @@ public class Main {
          			username=Library.checkLogin();
          			if(!username.equals("_error_")){
 						/**
-						 * Una volta che il Login è andato a buon fine controlliamo che l'iscrizione dell'user sia ancora valida.
-						 * Se non lo è, ovvero sono decaduti i privilegi, può avvenire il rinnovo dell'iscrizione.
-						 */
-						Library.renewalRegistration(Database.getUser(username));
-
-						/**
 						 * Verifichiamo se e\' un Admin.
 						 */
 						if(Database.checkAdminIfTrue(username)) {
@@ -76,6 +70,16 @@ public class Main {
 							 * Azioni sono: visualizzare elenco utenti, visualizzare l'elenco risorse, aggiungere nuova risorsa all'elenco e rimuovere risorsa dall'elenco.
 							 */
 							Library.actionAdmin();
+						} else{
+							/**
+							 * Una volta che il Login è andato a buon fine controlliamo che l'iscrizione dell'user sia ancora valida.
+							 * Se non lo è, ovvero sono decaduti i privilegi, può avvenire il rinnovo dell'iscrizione.
+							 */
+							Library.userExpired(Database.getUser(username));
+
+							if (!Database.getUser(username).getName().equals("_expired_")){
+								Library.renewalRegistration(Database.getUser(username));
+							}else Database.removeUser(username);
 						}
 					}else System.out.println("Autenticazione non e\' andata a buon fine.");
 					View.stampaRichiestaSingola(View.MG_ANCORA + View.PREMI);
